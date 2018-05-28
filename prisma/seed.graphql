@@ -1,0 +1,59 @@
+mutation {
+  a: createMovie(
+    data: {
+      name: "Iron Man"
+      year: 2008
+      characters: {
+        create: {
+          name: "Iron Man"
+          alterEgo: "Tony Stark"
+          weapon: { create: { name: "A big iron suit." } }
+        }
+      }
+    }
+  ) {
+    id
+  }
+
+  b: createMovie(
+    data: {
+      name: "The Incredible Hulk"
+      year: 2008
+      characters: { create: { name: "Hulk", alterEgo: "Bruce Banner" } }
+    }
+  ) {
+    id
+  }
+
+  c: createMovie(
+    data: {
+      name: "Captain America - The First Avenger"
+      year: 2011
+      characters: {
+        create: [
+          { name: "Captain America", alterEgo: "Steve Rogers" }
+          { name: "Winter Soldier", alterEgo: "Bucky Barnes" }
+        ]
+      }
+    }
+  ) {
+    id
+  }
+
+  d: createMovie(
+    data: {
+      name: "Thor"
+      year: 2011
+      characters: {
+        create: [
+          { name: "Thor", alterEgo: "Thor" }
+          { name: "Loki", alterEgo: "Loki" }
+          { name: "Odin", alterEgo: "Odin" }
+        ]
+      }
+    }
+  ) {
+    id
+  }
+
+}

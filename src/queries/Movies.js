@@ -1,16 +1,7 @@
 import React from 'react';
 import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-import styled from 'styled-components';
-
-const StyledInput = styled.div`
-  input {
-    font-family: 'Cinzel', serif;
-    padding: 5px;
-    margin-right: 10px;
-  }
-`;
-
+import { StyledInput } from '../components/ui/elements';
 
 const MOVIE_QUERY = gql`
   query getMovies {
@@ -41,11 +32,13 @@ const ADD_MOVIE = gql`
 `;
 
 export const MovieQuery = ({ children }) => (
-  <Query poll={500} notifyOnNetworkStatusChange query={MOVIE_QUERY}>{result => children(result)}</Query>
+  <Query poll={500} query={MOVIE_QUERY}>
+    {result => children(result)}
+  </Query>
 );
 
 export const MovieQueryByYear = ({ children, year }) => (
-  <Query poll={500} notifyOnNetworkStatusChange query={MOVIE_QUERY_BY_YEAR} variables={{ year }}>
+  <Query poll={500} query={MOVIE_QUERY_BY_YEAR} variables={{ year }}>
     {result => children(result)}
   </Query>
 );
@@ -64,9 +57,6 @@ export const AddMovieForm = () => {
                 e.preventDefault();
                 const name = nameInput.value;
                 const year = parseInt(yearInput.value, 10);
-                console.log(name);
-                console.log(year);
-
                 createMovie({ variables: { movieInput: { name, year } } });
                 nameInput.value = '';
                 yearInput.value = '';

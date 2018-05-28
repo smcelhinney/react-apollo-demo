@@ -1,23 +1,10 @@
 import React from 'react';
 import { MovieQuery, MovieQueryByYear, AddMovieForm } from '../queries/Movies';
 import { CharacterQuery } from '../queries/Characters';
-import styled from 'styled-components';
-
-const Row = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const Column = styled.div`
-  flex: 1;
-`;
-
-const StyledLink = styled.a`
-  padding: 5px 5px 5px 0;
-`
+import { Row, Column, StyledLink } from './ui/elements';
 
 const MovieInfo = ({ loading, error, data, refetch, networkStatus }) => {
-  if (networkStatus === 4) return "Refetching!";
+  if (networkStatus === 4) return 'Refetching!';
   if (loading) {
     return <div>Loading</div>;
   }
@@ -47,7 +34,7 @@ const MovieYears = ({ loading, error, data, clickHandler }) => {
   if (error) {
     return <h1>ERROR</h1>;
   }
-  console.log(data)
+  console.log(data);
 
   let elem = <div>No years</div>;
 
@@ -61,7 +48,7 @@ const MovieYears = ({ loading, error, data, clickHandler }) => {
       </StyledLink>
     ));
 
-    elem = <div>{years}</div>
+    elem = <div>{years}</div>;
   }
 
   return elem;
@@ -92,7 +79,8 @@ const Character = ({ loading, error, data }) => {
 
 class App extends React.Component {
   state = {
-    selectedYear: 2010
+    selectedYear: 2010,
+    selectedMovie: null
   };
 
   constructor(props) {
@@ -122,7 +110,6 @@ class App extends React.Component {
           </MovieQueryByYear>
           <h2>Add new movie</h2>
           <AddMovieForm />
-
         </Column>
         <Column>
           <h2>Characters</h2>
