@@ -1,0 +1,883 @@
+# source: http://localhost:4466/mcu/dev
+# timestamp: Fri May 25 2018 13:08:23 GMT+0100 (IST)
+
+type AggregateCharacter {
+  count: Int!
+}
+
+type AggregateMovie {
+  count: Int!
+}
+
+type AggregateWeapon {
+  count: Int!
+}
+
+type BatchPayload {
+  """The number of nodes that have been affected by the Batch operation."""
+  count: Long!
+}
+
+type Character implements Node {
+  id: ID!
+  name: String!
+  alterEgo: String!
+  weapon(where: WeaponWhereInput, orderBy: WeaponOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Weapon!]
+  movie(where: MovieWhereInput, orderBy: MovieOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Movie!]
+}
+
+"""A connection to a list of items."""
+type CharacterConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CharacterEdge]!
+  aggregate: AggregateCharacter!
+}
+
+input CharacterCreateInput {
+  name: String!
+  alterEgo: String!
+  weapon: WeaponCreateManyWithoutWieldedByInput
+  movie: MovieCreateManyWithoutCharactersInput
+}
+
+input CharacterCreateManyWithoutMovieInput {
+  create: [CharacterCreateWithoutMovieInput!]
+  connect: [CharacterWhereUniqueInput!]
+}
+
+input CharacterCreateManyWithoutWeaponInput {
+  create: [CharacterCreateWithoutWeaponInput!]
+  connect: [CharacterWhereUniqueInput!]
+}
+
+input CharacterCreateWithoutMovieInput {
+  name: String!
+  alterEgo: String!
+  weapon: WeaponCreateManyWithoutWieldedByInput
+}
+
+input CharacterCreateWithoutWeaponInput {
+  name: String!
+  alterEgo: String!
+  movie: MovieCreateManyWithoutCharactersInput
+}
+
+"""An edge in a connection."""
+type CharacterEdge {
+  """The item at the end of the edge."""
+  node: Character!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum CharacterOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  alterEgo_ASC
+  alterEgo_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type CharacterPreviousValues {
+  id: ID!
+  name: String!
+  alterEgo: String!
+}
+
+type CharacterSubscriptionPayload {
+  mutation: MutationType!
+  node: Character
+  updatedFields: [String!]
+  previousValues: CharacterPreviousValues
+}
+
+input CharacterSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CharacterSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CharacterSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CharacterSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CharacterWhereInput
+}
+
+input CharacterUpdateInput {
+  name: String
+  alterEgo: String
+  weapon: WeaponUpdateManyWithoutWieldedByInput
+  movie: MovieUpdateManyWithoutCharactersInput
+}
+
+input CharacterUpdateManyWithoutMovieInput {
+  create: [CharacterCreateWithoutMovieInput!]
+  connect: [CharacterWhereUniqueInput!]
+  disconnect: [CharacterWhereUniqueInput!]
+  delete: [CharacterWhereUniqueInput!]
+  update: [CharacterUpdateWithWhereUniqueWithoutMovieInput!]
+  upsert: [CharacterUpsertWithWhereUniqueWithoutMovieInput!]
+}
+
+input CharacterUpdateManyWithoutWeaponInput {
+  create: [CharacterCreateWithoutWeaponInput!]
+  connect: [CharacterWhereUniqueInput!]
+  disconnect: [CharacterWhereUniqueInput!]
+  delete: [CharacterWhereUniqueInput!]
+  update: [CharacterUpdateWithWhereUniqueWithoutWeaponInput!]
+  upsert: [CharacterUpsertWithWhereUniqueWithoutWeaponInput!]
+}
+
+input CharacterUpdateWithoutMovieDataInput {
+  name: String
+  alterEgo: String
+  weapon: WeaponUpdateManyWithoutWieldedByInput
+}
+
+input CharacterUpdateWithoutWeaponDataInput {
+  name: String
+  alterEgo: String
+  movie: MovieUpdateManyWithoutCharactersInput
+}
+
+input CharacterUpdateWithWhereUniqueWithoutMovieInput {
+  where: CharacterWhereUniqueInput!
+  data: CharacterUpdateWithoutMovieDataInput!
+}
+
+input CharacterUpdateWithWhereUniqueWithoutWeaponInput {
+  where: CharacterWhereUniqueInput!
+  data: CharacterUpdateWithoutWeaponDataInput!
+}
+
+input CharacterUpsertWithWhereUniqueWithoutMovieInput {
+  where: CharacterWhereUniqueInput!
+  update: CharacterUpdateWithoutMovieDataInput!
+  create: CharacterCreateWithoutMovieInput!
+}
+
+input CharacterUpsertWithWhereUniqueWithoutWeaponInput {
+  where: CharacterWhereUniqueInput!
+  update: CharacterUpdateWithoutWeaponDataInput!
+  create: CharacterCreateWithoutWeaponInput!
+}
+
+input CharacterWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CharacterWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CharacterWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CharacterWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  alterEgo: String
+
+  """All values that are not equal to given value."""
+  alterEgo_not: String
+
+  """All values that are contained in given list."""
+  alterEgo_in: [String!]
+
+  """All values that are not contained in given list."""
+  alterEgo_not_in: [String!]
+
+  """All values less than the given value."""
+  alterEgo_lt: String
+
+  """All values less than or equal the given value."""
+  alterEgo_lte: String
+
+  """All values greater than the given value."""
+  alterEgo_gt: String
+
+  """All values greater than or equal the given value."""
+  alterEgo_gte: String
+
+  """All values containing the given string."""
+  alterEgo_contains: String
+
+  """All values not containing the given string."""
+  alterEgo_not_contains: String
+
+  """All values starting with the given string."""
+  alterEgo_starts_with: String
+
+  """All values not starting with the given string."""
+  alterEgo_not_starts_with: String
+
+  """All values ending with the given string."""
+  alterEgo_ends_with: String
+
+  """All values not ending with the given string."""
+  alterEgo_not_ends_with: String
+  weapon_every: WeaponWhereInput
+  weapon_some: WeaponWhereInput
+  weapon_none: WeaponWhereInput
+  movie_every: MovieWhereInput
+  movie_some: MovieWhereInput
+  movie_none: MovieWhereInput
+}
+
+input CharacterWhereUniqueInput {
+  id: ID
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Movie implements Node {
+  id: ID!
+  name: String!
+  year: Int!
+  characters(where: CharacterWhereInput, orderBy: CharacterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Character!]
+}
+
+"""A connection to a list of items."""
+type MovieConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [MovieEdge]!
+  aggregate: AggregateMovie!
+}
+
+input MovieCreateInput {
+  name: String!
+  year: Int!
+  characters: CharacterCreateManyWithoutMovieInput
+}
+
+input MovieCreateManyWithoutCharactersInput {
+  create: [MovieCreateWithoutCharactersInput!]
+  connect: [MovieWhereUniqueInput!]
+}
+
+input MovieCreateWithoutCharactersInput {
+  name: String!
+  year: Int!
+}
+
+"""An edge in a connection."""
+type MovieEdge {
+  """The item at the end of the edge."""
+  node: Movie!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum MovieOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  year_ASC
+  year_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type MoviePreviousValues {
+  id: ID!
+  name: String!
+  year: Int!
+}
+
+type MovieSubscriptionPayload {
+  mutation: MutationType!
+  node: Movie
+  updatedFields: [String!]
+  previousValues: MoviePreviousValues
+}
+
+input MovieSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MovieSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MovieSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MovieSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: MovieWhereInput
+}
+
+input MovieUpdateInput {
+  name: String
+  year: Int
+  characters: CharacterUpdateManyWithoutMovieInput
+}
+
+input MovieUpdateManyWithoutCharactersInput {
+  create: [MovieCreateWithoutCharactersInput!]
+  connect: [MovieWhereUniqueInput!]
+  disconnect: [MovieWhereUniqueInput!]
+  delete: [MovieWhereUniqueInput!]
+  update: [MovieUpdateWithWhereUniqueWithoutCharactersInput!]
+  upsert: [MovieUpsertWithWhereUniqueWithoutCharactersInput!]
+}
+
+input MovieUpdateWithoutCharactersDataInput {
+  name: String
+  year: Int
+}
+
+input MovieUpdateWithWhereUniqueWithoutCharactersInput {
+  where: MovieWhereUniqueInput!
+  data: MovieUpdateWithoutCharactersDataInput!
+}
+
+input MovieUpsertWithWhereUniqueWithoutCharactersInput {
+  where: MovieWhereUniqueInput!
+  update: MovieUpdateWithoutCharactersDataInput!
+  create: MovieCreateWithoutCharactersInput!
+}
+
+input MovieWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MovieWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MovieWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MovieWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  year: Int
+
+  """All values that are not equal to given value."""
+  year_not: Int
+
+  """All values that are contained in given list."""
+  year_in: [Int!]
+
+  """All values that are not contained in given list."""
+  year_not_in: [Int!]
+
+  """All values less than the given value."""
+  year_lt: Int
+
+  """All values less than or equal the given value."""
+  year_lte: Int
+
+  """All values greater than the given value."""
+  year_gt: Int
+
+  """All values greater than or equal the given value."""
+  year_gte: Int
+  characters_every: CharacterWhereInput
+  characters_some: CharacterWhereInput
+  characters_none: CharacterWhereInput
+}
+
+input MovieWhereUniqueInput {
+  id: ID
+}
+
+type Mutation {
+  createCharacter(data: CharacterCreateInput!): Character!
+  createWeapon(data: WeaponCreateInput!): Weapon!
+  createMovie(data: MovieCreateInput!): Movie!
+  updateCharacter(data: CharacterUpdateInput!, where: CharacterWhereUniqueInput!): Character
+  updateWeapon(data: WeaponUpdateInput!, where: WeaponWhereUniqueInput!): Weapon
+  updateMovie(data: MovieUpdateInput!, where: MovieWhereUniqueInput!): Movie
+  deleteCharacter(where: CharacterWhereUniqueInput!): Character
+  deleteWeapon(where: WeaponWhereUniqueInput!): Weapon
+  deleteMovie(where: MovieWhereUniqueInput!): Movie
+  upsertCharacter(where: CharacterWhereUniqueInput!, create: CharacterCreateInput!, update: CharacterUpdateInput!): Character!
+  upsertWeapon(where: WeaponWhereUniqueInput!, create: WeaponCreateInput!, update: WeaponUpdateInput!): Weapon!
+  upsertMovie(where: MovieWhereUniqueInput!, create: MovieCreateInput!, update: MovieUpdateInput!): Movie!
+  updateManyCharacters(data: CharacterUpdateInput!, where: CharacterWhereInput): BatchPayload!
+  updateManyWeapons(data: WeaponUpdateInput!, where: WeaponWhereInput): BatchPayload!
+  updateManyMovies(data: MovieUpdateInput!, where: MovieWhereInput): BatchPayload!
+  deleteManyCharacters(where: CharacterWhereInput): BatchPayload!
+  deleteManyWeapons(where: WeaponWhereInput): BatchPayload!
+  deleteManyMovies(where: MovieWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Query {
+  characters(where: CharacterWhereInput, orderBy: CharacterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Character]!
+  weapons(where: WeaponWhereInput, orderBy: WeaponOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Weapon]!
+  movies(where: MovieWhereInput, orderBy: MovieOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Movie]!
+  character(where: CharacterWhereUniqueInput!): Character
+  weapon(where: WeaponWhereUniqueInput!): Weapon
+  movie(where: MovieWhereUniqueInput!): Movie
+  charactersConnection(where: CharacterWhereInput, orderBy: CharacterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CharacterConnection!
+  weaponsConnection(where: WeaponWhereInput, orderBy: WeaponOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WeaponConnection!
+  moviesConnection(where: MovieWhereInput, orderBy: MovieOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MovieConnection!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+}
+
+type Subscription {
+  character(where: CharacterSubscriptionWhereInput): CharacterSubscriptionPayload
+  weapon(where: WeaponSubscriptionWhereInput): WeaponSubscriptionPayload
+  movie(where: MovieSubscriptionWhereInput): MovieSubscriptionPayload
+}
+
+type Weapon implements Node {
+  id: ID!
+  name: String!
+  wieldedBy(where: CharacterWhereInput, orderBy: CharacterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Character!]
+}
+
+"""A connection to a list of items."""
+type WeaponConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [WeaponEdge]!
+  aggregate: AggregateWeapon!
+}
+
+input WeaponCreateInput {
+  name: String!
+  wieldedBy: CharacterCreateManyWithoutWeaponInput
+}
+
+input WeaponCreateManyWithoutWieldedByInput {
+  create: [WeaponCreateWithoutWieldedByInput!]
+  connect: [WeaponWhereUniqueInput!]
+}
+
+input WeaponCreateWithoutWieldedByInput {
+  name: String!
+}
+
+"""An edge in a connection."""
+type WeaponEdge {
+  """The item at the end of the edge."""
+  node: Weapon!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum WeaponOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type WeaponPreviousValues {
+  id: ID!
+  name: String!
+}
+
+type WeaponSubscriptionPayload {
+  mutation: MutationType!
+  node: Weapon
+  updatedFields: [String!]
+  previousValues: WeaponPreviousValues
+}
+
+input WeaponSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [WeaponSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [WeaponSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [WeaponSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: WeaponWhereInput
+}
+
+input WeaponUpdateInput {
+  name: String
+  wieldedBy: CharacterUpdateManyWithoutWeaponInput
+}
+
+input WeaponUpdateManyWithoutWieldedByInput {
+  create: [WeaponCreateWithoutWieldedByInput!]
+  connect: [WeaponWhereUniqueInput!]
+  disconnect: [WeaponWhereUniqueInput!]
+  delete: [WeaponWhereUniqueInput!]
+  update: [WeaponUpdateWithWhereUniqueWithoutWieldedByInput!]
+  upsert: [WeaponUpsertWithWhereUniqueWithoutWieldedByInput!]
+}
+
+input WeaponUpdateWithoutWieldedByDataInput {
+  name: String
+}
+
+input WeaponUpdateWithWhereUniqueWithoutWieldedByInput {
+  where: WeaponWhereUniqueInput!
+  data: WeaponUpdateWithoutWieldedByDataInput!
+}
+
+input WeaponUpsertWithWhereUniqueWithoutWieldedByInput {
+  where: WeaponWhereUniqueInput!
+  update: WeaponUpdateWithoutWieldedByDataInput!
+  create: WeaponCreateWithoutWieldedByInput!
+}
+
+input WeaponWhereInput {
+  """Logical AND on all given filters."""
+  AND: [WeaponWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [WeaponWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [WeaponWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  wieldedBy_every: CharacterWhereInput
+  wieldedBy_some: CharacterWhereInput
+  wieldedBy_none: CharacterWhereInput
+}
+
+input WeaponWhereUniqueInput {
+  id: ID
+}

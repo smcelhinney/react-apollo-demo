@@ -1,0 +1,20 @@
+type Character {
+  id: ID! @unique
+  name: String!
+  alterEgo: String!
+  weapon: [Weapon!]! @relation(name: "CharacterWeapon")
+  movie: [Movie!]! @relation(name: "MovieCharacter")
+}
+
+type Weapon {
+  id: ID! @unique
+  name: String!
+  wieldedBy: [Character!]! @relation(name: "CharacterWeapon")
+}
+
+type Movie {
+  id: ID! @unique
+  name: String!
+  year: Int!
+  characters: [Character!]! @relation(name: "MovieCharacter")
+}

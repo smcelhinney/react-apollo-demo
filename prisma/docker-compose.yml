@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+
+  prisma:
+    networks:
+      - prisma
+    image: prismagraphql/prisma:1.8
+    restart: always
+    depends_on:
+      - db
+    ports:
+    - "4466:4466"
+    env_file:
+      - .env
+    environment:
+      PRISMA_CONFIG: |
+        # managementApiSecret: my-server-secret-123
+        port: 4466
+        databases:
+          default:
+            connector: mysql  # or `postgres`
+            active: true
+            host: db
+            port: 3306        # or `5432` for `postgres`
+            user: root
+            password: prisma
+
+  db:
+    image: mysql:5.7
+    networks:
+      - prisma
+    restart: always
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: prisma
+
+networks:
+  prisma:
+    driver: bridge
