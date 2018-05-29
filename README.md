@@ -31,12 +31,17 @@ cd prisma && ln -s ../.env
 $ cd prisma && docker-compose up -d
 ```
 
+### Deploy your Prisma database schema
+
+```
+$ DEBUG=* prisma deploy
+```
+
 ### Start your app
 
 ```
 $ cd <project_root> && yarn start
 ```
-
 
 ## TODO
 
