@@ -27,12 +27,13 @@ mutation {
 
   c: createMovie(
     data: {
-      name: "Captain America - The First Avenger"
-      year: 2011
+      name: "Iron Man 2"
+      year: 2010
       characters: {
+        connect: { name: "Iron Man" }
         create: [
-          { name: "Captain America", alterEgo: "Steve Rogers" }
-          { name: "Winter Soldier", alterEgo: "Bucky Barnes" }
+          { name: "Black Widow", alterEgo: "Natasha Romanov" }
+          { name: "Nick Fury" }
         ]
       }
     }
@@ -46,9 +47,9 @@ mutation {
       year: 2011
       characters: {
         create: [
-          { name: "Thor", alterEgo: "Thor" }
-          { name: "Loki", alterEgo: "Loki" }
-          { name: "Odin", alterEgo: "Odin" }
+          { name: "Thor", weapon: { create: { name: "Mjolnir" } } }
+          { name: "Loki" }
+          { name: "Odin" }
         ]
       }
     }
@@ -56,4 +57,44 @@ mutation {
     id
   }
 
+  e: createMovie(
+    data: {
+      name: "Captain America - The First Avenger"
+      year: 2011
+      characters: {
+        create: [
+          {
+            name: "Captain America"
+            alterEgo: "Steve Rogers"
+            weapon: { create: { name: "Shield" } }
+          }
+          {
+            name: "Winter Soldier"
+            alterEgo: "Bucky Barnes"
+            weapon: { create: { name: "Cybernetic Arm" } }
+          }
+          { name: "Red Skull", alterEgo: "Johann Schmidt" }
+        ]
+      }
+    }
+  ) {
+    id
+  }
+
+  f: createMovie(
+    data: {
+      name: "The Avengers"
+      year: 2012
+      characters: {
+        connect: [
+          { name: "Iron Man" }
+          { name: "Captain America" }
+          { name: "Thor" }
+          { name: "Loki" }
+        ]
+      }
+    }
+  ) {
+    id
+  }
 }

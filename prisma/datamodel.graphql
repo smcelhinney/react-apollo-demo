@@ -1,9 +1,16 @@
+enum Allegiance {
+  GOOD
+  EVIL
+  COMPLICATED
+}
+
 type Character {
   id: ID! @unique
-  name: String!
-  alterEgo: String!
+  name: String! @unique
+  alterEgo: String
   weapon: [Weapon!]! @relation(name: "CharacterWeapon")
   movie: [Movie!]! @relation(name: "MovieCharacter")
+  allegiance: Allegiance! @default(value: GOOD)
 }
 
 type Weapon {
