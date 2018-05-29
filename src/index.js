@@ -11,6 +11,17 @@ injectGlobal`
 
   body {
     font-family: 'Cinzel', serif;
+    background-image: url('http://www.pngmart.com/files/3/Iron-Man-Transparent-Background.png');
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    display: flex;
+    height: 100vh;
+    width: 100%;
+  }
+
+  #index {
+    flex: 1
   }
 `
 
