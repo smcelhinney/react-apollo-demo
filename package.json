@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "reset-db":
+      "cd prisma && DEBUG=* prisma reset -f && DEBUG=* prisma deploy && DEBUG=* prisma seed --reset"
   },
   "keywords": [],
   "author": "",

@@ -32,6 +32,7 @@ mutation {
       characters: {
         connect: { name: "Iron Man" }
         create: [
+          { name: "Whiplash", alterEgo: "Ivan Vanko", allegiance: EVIL }
           { name: "Black Widow", alterEgo: "Natasha Romanov" }
           { name: "Nick Fury" }
         ]
@@ -48,7 +49,7 @@ mutation {
       characters: {
         create: [
           { name: "Thor", weapon: { create: { name: "Mjolnir" } } }
-          { name: "Loki" }
+          { name: "Loki", allegiance: COMPLICATED }
           { name: "Odin" }
         ]
       }
@@ -71,9 +72,10 @@ mutation {
           {
             name: "Winter Soldier"
             alterEgo: "Bucky Barnes"
+            allegiance: COMPLICATED
             weapon: { create: { name: "Cybernetic Arm" } }
           }
-          { name: "Red Skull", alterEgo: "Johann Schmidt" }
+          { name: "Red Skull", alterEgo: "Johann Schmidt", allegiance: EVIL }
         ]
       }
     }
