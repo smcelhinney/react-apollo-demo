@@ -30,7 +30,7 @@
     "subscriptions-transport-ws": "^0.9.9",
     "webpack": "^4.8.3",
     "webpack-cli": "^2.1.4",
-    "webpack-dev-server": "^3.1.4"
+    "webpack-dev-server": "^3.1.11"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
